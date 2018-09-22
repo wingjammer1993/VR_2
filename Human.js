@@ -87,15 +87,20 @@ Human.prototype.drawBody = function() {
 };
 
 Human.prototype.draw = function() {
-
+    this.context.save();
     this.context.translate(this.posX, this.posY);
-    this.context.rotate(this.heading);
+//    this.context.rotate(this.heading);
     this.context.scale(this.size, this.size);
 
     this.context.fillStyle = "#A0C0A0";
     this.context.strokeStyle = "#003300";
     this.drawHead();
     this.drawBody();
+
+    this.context.save();
+    this.context.restore();
+
+	this.context.restore();
 
 }
 

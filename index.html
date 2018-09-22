@@ -18,14 +18,9 @@
 				var canvas = document.getElementById("canvas");
 				var context = canvas.getContext("2d");
 
-				//The quadcopters that we will be drawing on the canvas
-				var human = [];
 				var snitch = []
 
-				// make some copters
-				human.push(new Human(context,50,100,0.8,"green"));
-				human.push(new Human(context,570,70,0.8,"red"));
-				snitch.push(new Snitch(context, human))
+				snitch.push(new Snitch(context))
 
 				//start drawing the first frame
 				requestAnimationFrame(mainLoop);

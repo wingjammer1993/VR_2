@@ -1,13 +1,16 @@
-function Snitch(context, humans) {
+function Snitch(context) {
 
-    this.humans = humans
     this.size = 0.5
-    this.posX = 300;
-    this.posY = 200;
+    this.pX = 300;
+    this.pY = 200;
     this.context = context;
-	this.velocityX = Math.random()*2 - 1;
-	this.velocityY = Math.random()*2 - 1;
-	this.heading = Math.atan2(this.velocityX, -this.velocityY);
+	this.velX = Math.random()*5 - 1;
+	this.velY = Math.random()*5 - 1;
+	this.angle = Math.atan2(this.velX, -this.velY);
+    this.humans = [];
+    this.humans.push(new Human(context,50,100,0.8,"green"));
+    this.humans.push(new Human(context,570,70,0.8,"red"));
+
 }
 
 Snitch.prototype.drawSnitch = function() {
@@ -18,10 +21,9 @@ Snitch.prototype.drawSnitch = function() {
 Snitch.prototype.draw = function() {
     this.context.save();
 
-    this.context.translate(this.posX, this.posY);
-    this.context.rotate(this.heading);
+    this.context.translate(this.pX, this.pY);
+    this.context.rotate(this.angle);
     this.context.scale(this.size, this.size);
-
     this.context.fillStyle = "#A0C0A0";
     this.context.strokeStyle = "#003300";
     this.drawSnitch();
@@ -35,29 +37,30 @@ Snitch.prototype.draw = function() {
 
 Snitch.prototype.update = function() {
 
-	this.posX += this.velocityX;
-	this.posY += this.velocityY;
+	this.pX += this.velX;
+	this.pY += this.velY;
 	this.humans.forEach(function(c) { c.update(); })
 
-	if (this.posX < 0)
+	if (this.pX < 0)
 	{
-		this.posX = 0;
-		this.velocityX *= -1;
+		this.pX = 0;
+		this.velX *= -1;
 	}
-	if (this.posX > this.context.canvas.clientWidth)
+	if (this.pX > this.context.canvas.clientWidth)
 	{
-		this.posX = this.context.canvas.clientWidth;
-		this.velocityX *= -1;
+		this.pX = this.context.canvas.clientWidth;
+		this.velX *= -1;
 	}
-	if (this.posY < 0)
+	if (this.pY < 0)
 	{
-		this.posY = 0;
-		this.velocityY *= -1;
+		this.pY = 0;
+		this.velY *= -1;
 	}
-	if (this.posY > this.context.canvas.clientHeight)
+	if (this.pY > this.context.canvas.clientHeight)
 	{
-		this.posY = this.context.canvas.clientHeight;
-		this.velocityY *= -1;
+		this.pY = this.context.canvas.clientHeight;
+		this.velY *= -1;
 	}
-	this.heading = Math.atan2(this.velocityX, -this.velocityY);
+	this.angle = Math.atan2(this.velX, -this.velY);
+
 }

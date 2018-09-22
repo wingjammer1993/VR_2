@@ -19,69 +19,75 @@ function Human(context,x,y,sz,color,hair)
 Human.prototype.drawHead = function() {
     this.context.beginPath();
     this.context.fillStyle = "bisque"; // #ffe4c4
-    this.context.arc(200, 50, 30, 0, Math.PI * 2, true); // draw circle for head
+    this.context.arc(0, -30, 30, 0, Math.PI * 2, true); // draw circle for head
     this.context.fill();
 
     this.context.beginPath();
     this.context.strokeStyle = "red"; // color
     this.context.lineWidth = 3;
-    this.context.arc(200, 50, 20, 0, Math.PI, false); // draw semicircle for smiling
+    this.context.arc(0, -30, 20, 0, Math.PI, false); // draw semicircle for smiling
     this.context.stroke();
 
     // eyes
     this.context.beginPath();
     this.context.fillStyle = this.color ; // color
-    this.context.arc(190, 45, 3, 0, Math.PI * 2, true); // draw left eye
+    this.context.arc(-10, -35, 3, 0, Math.PI * 2, true); // draw left eye
     this.context.fill();
-    this.context.arc(210, 45, 3, 0, Math.PI * 2, true); // draw right eye
+    this.context.arc(+10, -35, 3, 0, Math.PI * 2, true); // draw right eye
     this.context.fill();
 
 };
 
-Human.prototype.drawBody = function() {
+Human.prototype.drawArms = function() {
 
     this.context.beginPath();
-    this.context.moveTo(200, 80);
-    this.context.lineTo(200, 180);
+    this.context.strokeStyle = "gold";
+    this.context.moveTo(0, 0);
+    this.context.lineTo(-50, 50);
+    this.context.moveTo(0, 0);
+    this.context.lineTo(+50, 50);
+    this.context.stroke();
+}
+
+Human.prototype.drawBody = function() {
+
+    this.context.save();
+    this.drawArms();
+    this.context.restore();
+    this.context.beginPath();
+    this.context.moveTo(0, 0);
+    this.context.lineTo(0, 80);
     this.context.strokeStyle = this.color;
     this.context.stroke();
 
     this.context.beginPath();
-    this.context.strokeStyle = "gold";
-    this.context.moveTo(200, 80);
-    this.context.lineTo(150, 130);
-    this.context.moveTo(200, 80);
-    this.context.lineTo(250, 130);
-    this.context.stroke();
-
-    this.context.beginPath();
     this.context.strokeStyle = "orange";
-    this.context.moveTo(200, 180);
-    this.context.lineTo(150, 280);
-    this.context.moveTo(200, 180);
-    this.context.lineTo(250, 280);
+    this.context.moveTo(0, 80);
+    this.context.lineTo(-50, 200);
+    this.context.moveTo(0, 80);
+    this.context.lineTo(+50, 200);
     this.context.stroke();
 
     // broomstick
     this.context.beginPath();
     this.context.strokeStyle = "brown";
-    this.context.moveTo(100, 280);
-    this.context.lineTo(300, 280);
+    this.context.moveTo(-100, 200);
+    this.context.lineTo(+100, 200);
     this.context.stroke();
 
     // broom filaments
     this.context.beginPath();
     this.context.strokeStyle = "brown";
-    this.context.moveTo(300, 280);
-    this.context.lineTo(360, 290);
-    this.context.moveTo(300, 280);
-    this.context.lineTo(360, 300);
-    this.context.moveTo(300, 280);
-    this.context.lineTo(360, 260);
-    this.context.moveTo(300, 280);
-    this.context.lineTo(360, 270);
-    this.context.moveTo(300, 280);
-    this.context.lineTo(360, 280);
+    this.context.moveTo(100, 200);
+    this.context.lineTo(160, 210);
+    this.context.moveTo(100, 200);
+    this.context.lineTo(160, 220);
+    this.context.moveTo(100, 200);
+    this.context.lineTo(160, 180);
+    this.context.moveTo(100, 200);
+    this.context.lineTo(160, 190);
+    this.context.moveTo(100, 200);
+    this.context.lineTo(160, 200);
     this.context.stroke();
 
 };

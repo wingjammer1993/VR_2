@@ -1,4 +1,4 @@
-function Human(context,x,y,sz,numProps,color,hair)
+function Human(context,x,y,sz,color,hair)
 {
     // these are it's properties
     this.size = sz || 0.5;
@@ -11,7 +11,6 @@ function Human(context,x,y,sz,numProps,color,hair)
     this.posY = y || 200;
     this.frontPropAngle = 0; //angle propellers start at
     this.context = context;
-	this.numProps = numProps || 4; //how many propellers
 	this.velocityX = Math.random()*2 - 1;
 	this.velocityY = Math.random()*2 - 1;
 	this.heading = Math.atan2(this.velocityX, -this.velocityY); //negative y since positive y is down
@@ -88,7 +87,6 @@ Human.prototype.drawBody = function() {
 };
 
 Human.prototype.draw = function() {
-    this.context.save();
 
     this.context.translate(this.posX, this.posY);
     this.context.rotate(this.heading);
@@ -99,12 +97,7 @@ Human.prototype.draw = function() {
     this.drawHead();
     this.drawBody();
 
-    this.context.save();
-    this.context.restore();
-
-	this.context.restore();
 }
-
 
 Human.prototype.update = function() {
     this.frontPropAngle += this.propRotationSpeed;

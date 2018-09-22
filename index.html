@@ -8,7 +8,8 @@
 		</canvas>
 		<script type="text/javascript" src="Human.js"></script>
 		<script type="text/javascript" src="Snitch.js"></script>
-		<img id="img" src='http://fc03.deviantart.net/fs23/f/2007/352/4/c/HP___GOLDEN_SNITCH_by_Aoeiya.gif' width="50" height="auto">
+		<img id="img" src='http://fc03.deviantart.net/fs23/f/2007/352/4/c/HP___GOLDEN_SNITCH_by_Aoeiya.gif'
+			 style="display: none;" width="50" height="auto">
 
 		<script type="text/javascript">
 			$(window).bind("load", function() {
@@ -19,11 +20,12 @@
 
 				//The quadcopters that we will be drawing on the canvas
 				var human = [];
+				var snitch = []
 
 				// make some copters
-				human.push(new Human(context,50,100,.4, 6,"green"));
-				human.push(new Human(context,570,70,.3, 3,"red"));
-
+				human.push(new Human(context,50,100,0.8,"green"));
+				human.push(new Human(context,570,70,0.8,"red"));
+				snitch.push(new Snitch(context, human))
 
 				//start drawing the first frame
 				requestAnimationFrame(mainLoop);
@@ -32,13 +34,12 @@
 				function mainLoop() {
 					update();
 					draw();
-
 					requestAnimationFrame(mainLoop); //keep reiterating through this loop
 				}
 
 				//Here is where we would update the state of our game or simulation (e.g., make the copters move).
 				function update() {
-					human.forEach(function(c) { c.update();})
+					snitch.forEach(function(c) { c.update();})
 				}
 
 				//Draw the scene. Here we simply erase what was previously drawn (e.g., where the copters used to be), then draw it again
@@ -49,7 +50,7 @@
 					//save the coordinate frame (in case we wanted to draw other things after the copters)
 					context.save();
 					//draw each copter
-					human.forEach(function(c) { c.draw(); })
+					snitch.forEach(function(c) { c.draw(); })
 					//restore the coordinate frame (in case we wanted to draw other things)
 					context.restore();
 				}

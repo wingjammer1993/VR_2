@@ -1,28 +1,19 @@
-function Snitch(context) {
+function Snitch(context, humans) {
 
-    this.size = sz || 0.5;
-	this.propRotationSpeed = .3; //how fast the propellers will rotate
-
-	// this is its state
-	this.color = color;
-    this.posX = x || 300;
-    this.posY = y || 200;
-    this.frontPropAngle = 0; //angle propellers start at
+    this.humans = humans
+    this.size = 0.5
+    this.posX = 300;
+    this.posY = 200;
     this.context = context;
-	this.numProps = numProps || 4; //how many propellers
 	this.velocityX = Math.random()*2 - 1;
 	this.velocityY = Math.random()*2 - 1;
-	this.heading = Math.atan2(this.velocityX, -this.velocityY); //negative y since positive y is down
-
+	this.heading = Math.atan2(this.velocityX, -this.velocityY);
 }
 
 Snitch.prototype.drawSnitch = function() {
-
-var img=document.getElementById("img");
-this.context.drawImage(img,10,10);
+    var img=document.getElementById("img");
+    this.context.drawImage(img,10,10);
 }
-
-
 
 Snitch.prototype.draw = function() {
     this.context.save();
@@ -34,7 +25,7 @@ Snitch.prototype.draw = function() {
     this.context.fillStyle = "#A0C0A0";
     this.context.strokeStyle = "#003300";
     this.drawSnitch();
-
+    this.humans.forEach(function(c) { c.draw(); })
     this.context.save();
     this.context.restore();
 
@@ -43,9 +34,10 @@ Snitch.prototype.draw = function() {
 
 
 Snitch.prototype.update = function() {
-    this.frontPropAngle += this.propRotationSpeed;
+
 	this.posX += this.velocityX;
 	this.posY += this.velocityY;
+	this.humans.forEach(function(c) { c.update(); })
 
 	if (this.posX < 0)
 	{

@@ -1,15 +1,12 @@
-function Human(context,x,y,sz,color,hair)
+function Human(context,x,y,sz,color)
 {
     // these are it's properties
     this.size = sz || 0.5;
-	this.propRotationSpeed = .3; //how fast the propellers will rotate
 
 	// this is its state
 	this.color = color;
-	this.hair = hair;
     this.posX = x || 300;
     this.posY = y || 200;
-    this.frontPropAngle = 0; //angle propellers start at
     this.context = context;
 	this.velocityX = Math.random()*2 - 1;
 	this.velocityY = Math.random()*2 - 1;
@@ -41,7 +38,7 @@ Human.prototype.drawHead = function() {
 Human.prototype.drawArms = function() {
 
     this.context.beginPath();
-    this.context.strokeStyle = "gold";
+    this.context.strokeStyle = "black";
     this.context.moveTo(0, 0);
     this.context.lineTo(-50, 50);
     this.context.moveTo(0, 0);
@@ -52,7 +49,6 @@ Human.prototype.drawArms = function() {
 Human.prototype.drawBody = function() {
 
     this.context.save();
-    this.drawArms();
     this.context.restore();
     this.context.beginPath();
     this.context.moveTo(0, 0);
@@ -92,26 +88,35 @@ Human.prototype.drawBody = function() {
 
 };
 
-Human.prototype.draw = function() {
+Human.prototype.draw = function(px, py) {
     this.context.save();
     this.context.translate(this.posX, this.posY);
-//    this.context.rotate(this.heading);
+    this.context.rotate(this.heading);
     this.context.scale(this.size, this.size);
 
     this.context.fillStyle = "#A0C0A0";
     this.context.strokeStyle = "#003300";
     this.drawHead();
     this.drawBody();
-
     this.context.save();
+    if (px < this.posX || py < this.posY )
+    {
+        angle = Math.PI/2;
+    }
+    else
+    {
+        angle = -Math.PI/2;
+    }
+    this.context.rotate(angle);
+    this.drawArms();
     this.context.restore();
 
-	this.context.restore();
+    this.context.restore();
 
 }
 
 Human.prototype.update = function() {
-    this.frontPropAngle += this.propRotationSpeed;
+
 	this.posX += this.velocityX;
 	this.posY += this.velocityY;
 
